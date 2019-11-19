@@ -23,7 +23,7 @@
 ## 运行示例
 
 ```bash
-python3 -u momo-share.py ‘url‘
+python3 -u momo-share.py ‘url’
 ```
 
 或者
@@ -37,7 +37,11 @@ python3 -u momo-share.py ‘url‘
  其中pid是每天都+1的，uid就是你的墨墨UID，在“我的设置“中可以看到
  设置好了之后再跑跑看
 
- 除了URL这个参数，后面可以跟浏览次数和代理的最大次数，请按照顺序输入，具体参考代码
+ 除了URL这个参数，后面可以跟浏览次数，请按照顺序输入
+
+例如：
+
+`python3 -u momo-share.py ‘默默背单词分享链接’ ‘最小浏览次数’`
 
 ## 声明
 
@@ -48,7 +52,7 @@ python3 -u momo-share.py ‘url‘
 如果出现以下报错，请关闭系统的代理再试一下。
 
 ```bash
-» python momo-share.py
+» python momo-share.py https://www.maimomo.com/share/page/?uid=xxxxxxxx&pid=xxxxxxxx&tid=xxxxxxxx
 [+] get proxy...
   [-]Error: HTTPConnectionPool(host='127.0.0.1', port=7890): Max retries exceeded with url: http://www.89ip.cn/tqdl.html?num=100 (Caused by ProxyError('Cannot connect to proxy.', RemoteDisconnected('Remote end closed connection without response',)))
 ```
