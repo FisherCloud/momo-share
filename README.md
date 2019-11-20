@@ -12,24 +12,24 @@
 2. 利用代理访问文章
 3. 增加访问量
 
-在linux下运行（unix或许也行
+在linux下运行，我用的Windows的Linux子系统（Ubuntu18.04）（Windows和Unix或许也行
 
 使用python3，需要安装：
 
 `pip3 install termcolor`
 
-`pip3 install aiohttp`利用aiohttp实现的协程访问
+`pip3 install aiohttp`利用aiohttp实现的协程访问（只适用于python3）
 
 ## 运行示例
 
 ```bash
-python3 -u momo-share.py ‘url’
+python3 -u momo-share.py 'url'
 ```
 
 或者
 
 ```bash
-./momo.sh ‘url’
+./momo.sh 'url'
 ```
 
  url需要改，怎么获得这个呢？首先你打卡之后，要分享到空间去，然后点开这个分享，转发链接到“我的电脑“，然后你就能看到这个url，大概是这样：
