@@ -2,7 +2,7 @@
 import aiohttp
 import asyncio
 from termcolor import colored
-from requests import get
+import requests
 import re
 import time
 
@@ -10,6 +10,8 @@ import time
 class momo_share:
     def __init__(self, url, TargetNum=20, proxynum=100):
         super().__init__()
+        self.header = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36'}
         self.proxies = []
         self.ProxyList = []
         self.proxynum = proxynum
@@ -26,7 +28,8 @@ class momo_share:
         while 1:
             try:
                 purl = 'http://www.89ip.cn/tqdl.html?num=%s' % self.proxynum
-                html = get(purl).text
+                resp = requests.get(purl, headers=self.header)
+                html = resp.text
 
                 self.proxies = set(re.findall(
                     r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+", html)) - set(self.ProxyList)
