@@ -10,7 +10,9 @@
 
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import requests, threading, datetime
+import requests
+import threading
+import datetime
 from bs4 import BeautifulSoup
 import random
 
@@ -58,24 +60,24 @@ def gettimediff(start, end):
 # ----------------------------------------------------------------------------------------------------------------------
 # 返回一个随机的请求头 headers
 def getheaders():
-    user_agent_list = [ \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1" \
-        "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6", \
-        "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1", \
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5", \
-        "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3", \
-        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3", \
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24", \
+    user_agent_list = [
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"
+        "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6",
+        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6",
+        "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5",
+        "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
+        "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24",
         "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
     UserAgent = random.choice(user_agent_list)
@@ -88,7 +90,8 @@ def checkip(targeturl, ip):
     headers = getheaders()  # 定制请求头
     proxies = {"http": "http://" + ip, "https": "https://" + ip}  # 代理ip
     try:
-        response = requests.get(url=targeturl, proxies=proxies, headers=headers, timeout=5).status_code
+        response = requests.get(
+            url=targeturl, proxies=proxies, headers=headers, timeout=5).status_code
         if response == 200:
             return True
         else:
@@ -99,13 +102,15 @@ def checkip(targeturl, ip):
 
 # -------------------------------------------------------获取代理方法----------------------------------------------------
 # 免费代理 XiciDaili
-def findip(type, num, targeturl, path):  # ip类型,条数,目标url,存放ip的路径
+def findip(type, pagenum, targeturl, path):  # ip类型,条数,目标url,存放ip的路径
     list = {
-    '1': 'http://www.xicidaili.com/wn/',  # xicidaili国内https代理
-    '2': 'http://www.xicidaili.com/nn/',  # xicidaili国内高匿代理
-    '3': 'http://www.xicidaili.com/nt/',  # xicidaili国内普通代理
-    '4': 'http://www.xicidaili.com/wt/'}  # xicidaili国外http代理
-    url = list[str(type)] + str(num)  # 配置url
+        '1': 'http://www.xicidaili.com/wn/',  # xicidaili国内https代理
+        '2': 'http://www.xicidaili.com/nn/',  # xicidaili国内高匿代理
+        '3': 'http://www.xicidaili.com/nt/',  # xicidaili国内普通代理
+        '4': 'http://www.xicidaili.com/wt/',   # xicidaili国外http代理
+        '5': 'http://www.89ip.cn/tqdl.html?num='
+    }
+    url = list[str(type)] + str(pagenum)  # 配置url
     # print("url:",url)
     headers = getheaders()  # 定制请求头
     html = requests.get(url=url, headers=headers, timeout=5).text
@@ -126,9 +131,10 @@ def getip(targeturl, path):
     truncatefile(path)  # 爬取前清空文档
     start = datetime.datetime.now()  # 开始时间
     threads = []
-    for type in range(2):  # 四种类型ip,每种类型取前50,共200条线程
-        for num in range(50):
-            t = threading.Thread(target=findip, args=(type + 1, num + 1, targeturl, path))
+    for type in range(5):  # 四种类型ip,每种类型取前100,共200条线程
+        for pagenum in range(100):
+            t = threading.Thread(target=findip, args=(
+                type + 1, pagenum + 1, targeturl, path))
             threads.append(t)
     print('开始爬取代理ip')
     for s in threads:  # 开启多线程爬取
@@ -147,4 +153,3 @@ if __name__ == '__main__':
     path = 'ip.txt'  # 存放爬取ip的文档path
     targeturl = 'http://www.maimemo.com/'  # 验证ip有效性的指定url
     getip(targeturl, path)
-
