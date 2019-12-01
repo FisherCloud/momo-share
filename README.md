@@ -60,3 +60,7 @@ python3 -u momo-share.py 'url'
 ## 感谢
 
 参考大佬[Macr0phag3](https://github.com/Macr0phag3/MoMo)的脚本改写和封装
+
+## 2019-11-30
+
+发现大量的代理ip不能够访问，已添加ip-proxy.py用于爬取可用代理ip，但还未重新修改momo-share.py。（待抽空再改）
