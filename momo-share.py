@@ -5,10 +5,11 @@ from termcolor import colored
 import requests
 import re
 import time
+import random
 
 
 class momo_share:
-    def __init__(self, url, TargetNum=20, proxynum=100):
+    def __init__(self, url, TargetNum=30, proxynum=120):
         super().__init__()
         self.header = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36'}
@@ -36,7 +37,7 @@ class momo_share:
 
                 if not len(self.proxies):
                     print('\n  [-]Waiting')
-                    time.sleep(3)
+                    time.sleep(random(0, 3))
                     continue
 
                 print(colored('[%d]' % len(self.proxies), 'yellow', attrs=['bold']), '%s' % (
@@ -44,7 +45,7 @@ class momo_share:
                 return 1
             except Exception as e:
                 print('\n  [-]Error: ' + str(e))
-                time.sleep(5)
+                time.sleep(random(1, 6))
                 pass
 
     async def autoVisit(self, proxy, sem):
