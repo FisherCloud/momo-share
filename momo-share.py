@@ -9,7 +9,7 @@ import random
 
 
 class momo_share:
-    def __init__(self, url, TargetNum=30, proxynum=120):
+    def __init__(self, url, TargetNum=25, proxynum=120):
         super().__init__()
         self.header = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36'}
@@ -54,7 +54,7 @@ class momo_share:
                 try:
                     async with session.get(url=url, proxy='http://' + proxy, timeout=5) as resp:
                         print('[%s]' % colored(proxy, 'cyan', attrs=['bold']),
-                              colored('Successfully!', 'green', attrs=['bold']), '[%s]', colored(self.completion+1, 'blue', attrs=['bold']))
+                              colored('Successfully!', 'green', attrs=['bold']), '[%s]' % colored(self.completion+1, 'blue', attrs=['bold']))
                     self.ProxyList.append(proxy)
                     self.completion += 1
                 except Exception as e:
