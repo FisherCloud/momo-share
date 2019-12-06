@@ -54,12 +54,12 @@ class momo_share:
                 try:
                     async with session.get(url=url, proxy='http://' + proxy, timeout=5) as resp:
                         print('[%s]' % colored(proxy, 'cyan', attrs=['bold']),
-                              colored('Successfully!', 'green', attrs=['bold']))
+                              colored('Successfully!', 'green', attrs=['bold']), '[%s]', colored(self.completion+1, 'blue', attrs=['bold']))
                     self.ProxyList.append(proxy)
                     self.completion += 1
                 except Exception as e:
-                    print('[%s]' % proxy, colored(
-                        'Failed!', 'red', attrs=['bold']))
+                    pass
+                    # print('[%s]' % proxy, colored('Failed!', 'red', attrs=['bold']))
 
     def run(self):
         if '' != url:

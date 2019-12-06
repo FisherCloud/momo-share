@@ -151,5 +151,5 @@ def getip(targeturl, path):
 # -------------------------------------------------------启动-----------------------------------------------------------
 if __name__ == '__main__':
     path = 'ip.txt'  # 存放爬取ip的文档path
-    targeturl = 'http://www.maimemo.com/'  # 验证ip有效性的指定url
+    targeturl = 'https://www.maimemo.com/share/page?uid=6337427&pid=5e2f0cfec3ba6017b936382161c48c55&tid=31f7ff09f0511b890d1922019a4adc07'  # 验证ip有效性的指定url
     getip(targeturl, path)
