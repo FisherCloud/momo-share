@@ -1,3 +1,4 @@
+# !/usr/bin/env python3
 #encoding: utf8
 import re
 import sys
@@ -13,18 +14,12 @@ from bs4 import BeautifulSoup
 
 
 class momo_share:
-    def __init__(self, url='', TargetNum=20, proxynum=100):
+    def __init__(self):
         super().__init__()
-        # self.header = ""
-        # self.proxies = []
-        # self.ProxyList = []
-        # self.proxynum = proxynum
-        # self.TargetNum = TargetNum
-        # self.url = url
-        # self.completion = 0
         pass
 
-    # ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+
     # 返回一个随机的请求头 headers
     def getheaders(self):
         user_agent_list = [
@@ -50,64 +45,6 @@ class momo_share:
         UserAgent = random.choice(user_agent_list)
         headers = {'User-Agent': UserAgent}
         return headers
-
-    # def getProxy(self):
-    #     if self.completion >= self.TargetNum:
-    #         return 0
-    #     # print('[+] %s' % colored('get proxy...', 'blue', attrs=['bold']), end='')
-
-    #     while 1:
-    #         try:
-    #             purl = 'http://www.89ip.cn/tqdl.html?num=%s' % self.proxynum
-    #             resp = requests.get(purl, headers=self.header)
-    #             html = resp.text
-
-    #             self.proxies = set(re.findall(
-    #                 r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+", html)) - set(self.ProxyList)
-
-    #             if not len(self.proxies):
-    #                 # print('\n  [-]Waiting')
-    #                 time.sleep(1)
-    #                 continue
-
-    #             # print(colored('[%d]' % len(self.proxies), 'yellow', attrs=['bold']), '%s' % (colored('Done!', 'green', attrs=['bold'])))
-    #             return 1
-    #         except Exception as e:
-    #             # print('\n  [-]Error: ' + str(e))
-    #             time.sleep(random(1, 3))
-    #             pass
-
-    # async def autoVisit(self, proxy, sem):
-    #     async with sem:
-    #         async with aiohttp.ClientSession() as session:
-    #             try:
-    #                 async with session.get(url=url, proxy='http://' + proxy, timeout=5) as resp:
-    #                     # print('[%s]' % colored(proxy, 'cyan', attrs=['bold']), colored('Successfully!', 'green', attrs=['bold']), '[%s]' % colored(self.completion+1, 'blue', attrs=['bold']))
-    #                     pass
-    #                 self.ProxyList.append(proxy)
-    #                 self.completion += 1
-    #             except Exception as e:
-    #                 pass
-    #                 # print('[%s]' % proxy, colored('Failed!', 'red', attrs=['bold']))
-
-    # def run(self):
-    #     if '' != self.url:
-    #         self.header = self.getheaders()  # 获取一个请求头
-    #         loop = asyncio.get_event_loop()
-    #         sem = asyncio.Semaphore(self.proxynum)
-    #         while self.getProxy():
-    #             tasks = [asyncio.ensure_future(
-    #                 self.autoVisit(i, sem)) for i in self.proxies]
-    #             loop.run_until_complete(asyncio.wait(tasks))
-    #         loop.close()
-    #         # print(colored(self.completion, 'yellow', attrs=['bold']))
-    #         pass
-    #     else:
-    #         # print('error')
-    #         pass
-
-    # def getCompletionNumber(self):
-    #     return self.completion
 
 # ---------------------------------------------------------------------------------
 
@@ -142,7 +79,7 @@ class momo_share:
         return diff
 
     # 检查ip是否可用
-    def checkip(self, ip, targeturl="https://www.maimemo.com/"):
+    def checkip(self, ip="127.0.0.1", targeturl="https://www.maimemo.com/"):
         headers = self.getheaders()  # 定制请求头
 
         proxies = {"http": "http://" + ip, "https": "https://" + ip}  # 代理ip
@@ -173,21 +110,28 @@ class momo_share:
         headers = self.getheaders()  # 定制请求头
         # print("get header %s" % datetime.datetime.now().__str__())
 
-        rs = requests.get(url=url, headers=headers)
-        html = rs.text
+        try:
+            s = requests.session()
+            s.keep_alive = False
+            rs = requests.get(url=url, headers=headers, timeout=5)
+            html = rs.text
 
-        # print("html:", html)
-        soup = BeautifulSoup(html, 'lxml')
-        all = soup.find_all('tr', class_='odd')
-        for i in all:
-            t = i.find_all('td')
-            ip = t[1].text + ':' + t[2].text
-            is_avail = self.checkip(ip=ip, targeturl=targeturl)
-            if is_avail == True:
-                self.write(path=path, text=ip)
-                print(ip)
+            # print("html:", html)
+            soup = BeautifulSoup(html, 'lxml')
+            all = soup.find_all('tr', class_='odd')
+            for i in all:
+                t = i.find_all('td')
+                ip = t[1].text + ':' + t[2].text
+                is_avail = self.checkip(ip=ip, targeturl=targeturl)
+                if is_avail == True:
+                    self.write(path=path, text=ip)
+                    print(ip)
+        except:
+            print("sleep 2 seconds")
+            time.sleep(2)
 
     # 从ip代理网站获取ip，并保存到文件中
+
     def getProxyIpFromWeb(self, targeturl="https://www.maimemo.com/", path="ip.txt"):
         self.truncatefile(path)  # 爬取前清空文档
 
@@ -215,7 +159,7 @@ class momo_share:
         diff = self.gettimediff(start, end)  # 计算耗时
 
         ips = self.read(path)  # 读取爬到的ip数量
-        print('一共爬取代理ip: %s 个,共耗时: %s \n' % (len(ips), diff))
+        print('Get ip proxy: %s , time: %s \n' % (len(ips), diff))
         for ip in ips:
             print("[%s]" % ip.__str__())
             pass
@@ -223,14 +167,20 @@ class momo_share:
 # ---------------------------------------------------------------------------------
 
     # 从文件加载ip
-    def getProxyIpFromFile(self, url="", path="ip.txt"):
-        ips = read(path)
+    def getProxyIpFromFile(self, targeturl="", path="ip.txt"):
+        ips = self.read(path)
+
+        if 0 == len(ips):
+            print("文件为空，请重新爬取ip")
+            return
+
         threads = []
         for ip in ips:
-            t = threading.Thread(target=self.check, args=(ip, url))
+            t = threading.Thread(target=self.check, args=(ip, targeturl))
             threads.append(t)
             pass
 
+        print("开始访问......")
         for thread in threads:
             thread.start()
             pass
@@ -239,41 +189,22 @@ class momo_share:
             thread.join()
             pass
 
+        print("访问结束。")
         pass
 
 
 if __name__ == "__main__":
-    # how many proxies you want to
-    # get in one request of free proxy site
-    # proxynum = 100
-    # how many visition your want to get, great or equal TargetNum what you set
-    # TargetNum = 20
-
     try:
-        # # get argv
-        # from sys import argv
-        # print(argv)
-        # if 4 == argv.__len__():
-        #     filename, url, proxynum, targetnum = argv
-        #     momo = momo_share(url=url, TargetNum=int(
-        #         targetnum), proxynum=int(proxynum))
-        # elif 3 == argv.__len__():
-        #     filename, url, targetnum = argv
-        #     momo = momo_share(url=url, TargetNum=int(targetnum))
-        # elif 2 == argv.__len__():
-        #     filename, url = argv
-        #     momo = momo_share(url)
-        # else:
-        #     print(
-        #         "python -u momo-share.py url [targetnum] [proxynum]\ndefault: targetnum = 20, proxynum = 100")
-        #     sys.exit(0)
-
-        # # run
-        # momo.run()
-        # print("succed:[%d]" % momo.getCompletionNumber())
-        # pass
         momo = momo_share()
-        momo.getProxyIpFromWeb(targeturl="https://www.maimemo.com/")
+        print("菜单（回复序号）：")
+        print("1. 开始抓取代理ip")
+        print("2. 开始代理访问")
+        index = int(input("请输入："))
+        if 1 == index:
+            momo.getProxyIpFromWeb(targeturl="https://www.maimemo.com/")
+        elif 2 == index:
+            url = input("请输入链接地址：")
+            momo.getProxyIpFromFile(targeturl=url)
         pass
     except KeyboardInterrupt:
         # print("exit")
