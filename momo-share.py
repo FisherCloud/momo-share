@@ -1,11 +1,12 @@
 #encoding: utf8
-import aiohttp
-import asyncio
-from termcolor import colored
-import requests
 import re
+import sys
 import time
 import random
+import aiohttp
+import asyncio
+import requests
+from termcolor import colored
 
 
 class momo_share:
@@ -98,8 +99,8 @@ if __name__ == "__main__":
         filename, url = argv
         momo = momo_share(url)
     else:
-        print("python -u MoMo-aiohttp.py 'url' 'targetnum' 'proxynum'")
-        exit(-1)
+        print("python -u momo-share.py 'url' 'targetnum' 'proxynum'")
+        sys.exit(0)
 
     # run
     momo.run()
