@@ -1,13 +1,3 @@
-#       2019/11/22
-#       思路：   1、找到一个免费的ip代理网站(如：西刺代理)
-#
-#                  2、爬取ip（常规爬取requests+BeautifulSoup）
-#
-#                  3、验证ip有效性（携带爬取到的ip，去访问指定的url，看返回的状态码是不是200）
-#
-#                  4、记录ip （写到文档）
-
-
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import requests
@@ -131,7 +121,7 @@ def getip(targeturl, path):
     truncatefile(path)  # 爬取前清空文档
     start = datetime.datetime.now()  # 开始时间
     threads = []
-    for type in range(5):  # 四种类型ip,每种类型取前100,共200条线程
+    for type in range(5):  # 五种类型ip,每种类型取前100,共200条线程
         for pagenum in range(100):
             t = threading.Thread(target=findip, args=(
                 type + 1, pagenum + 1, targeturl, path))
@@ -151,5 +141,5 @@ def getip(targeturl, path):
 # -------------------------------------------------------启动-----------------------------------------------------------
 if __name__ == '__main__':
     path = 'ip.txt'  # 存放爬取ip的文档path
-    targeturl = 'https://www.maimemo.com/share/page?uid=6337427&pid=5e2f0cfec3ba6017b936382161c48c55&tid=31f7ff09f0511b890d1922019a4adc07'  # 验证ip有效性的指定url
+    targeturl = 'https://www.maimemo.com/share/page?uid=6337427&pid=42a60b334a815033c64e7530622b458d&tid=1d9f1761c8dd2917e6f3575fc5ac83a0'  # 验证ip有效性的指定url
     getip(targeturl, path)
