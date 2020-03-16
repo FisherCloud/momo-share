@@ -26,7 +26,7 @@ class momo_share:
     def getProxy(self):
         if self.completion >= self.TargetNum:
             return 0
-        # print('[+] %s' % colored('get proxy...', 'blue', attrs=['bold']), end='')
+        print('[+] %s' % colored('get proxy...', 'blue', attrs=['bold']), end='')
 
         while 1:
             try:
@@ -38,14 +38,15 @@ class momo_share:
                     r"[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+", html)) - set(self.ProxyList)
 
                 if not len(self.proxies):
-                    # print('\n  [-]Waiting')
+                    print('\n  [-]Waiting')
                     time.sleep(1)
                     continue
 
-                # print(colored('[%d]' % len(self.proxies), 'yellow', attrs=['bold']), '%s' % (colored('Done!', 'green', attrs=['bold'])))
+                print(colored('[%d]' % len(self.proxies), 'yellow', attrs=[
+                      'bold']), '%s' % (colored('Done!', 'green', attrs=['bold'])))
                 return 1
             except Exception as e:
-                # print('\n  [-]Error: ' + str(e))
+                print('\n  [-]Error: ' + str(e))
                 time.sleep(random(1, 3))
                 pass
 
@@ -54,13 +55,15 @@ class momo_share:
             async with aiohttp.ClientSession() as session:
                 try:
                     async with session.get(url=url, proxy='http://' + proxy, timeout=5) as resp:
-                        # print('[%s]' % colored(proxy, 'cyan', attrs=['bold']), colored('Successfully!', 'green', attrs=['bold']), '[%s]' % colored(self.completion+1, 'blue', attrs=['bold']))
+                        print('[%s]' % colored(proxy, 'cyan', attrs=['bold']), colored('Successfully!', 'green', attrs=[
+                              'bold']), '[%s]' % colored(self.completion+1, 'blue', attrs=['bold']))
                         pass
                     self.ProxyList.append(proxy)
                     self.completion += 1
                 except Exception as e:
                     pass
-                    # print('[%s]' % proxy, colored('Failed!', 'red', attrs=['bold']))
+                    print('[%s]' % proxy, colored(
+                        'Failed!', 'red', attrs=['bold']))
 
     def run(self):
         if '' != url:
@@ -71,10 +74,10 @@ class momo_share:
                     self.autoVisit(i, sem)) for i in self.proxies]
                 loop.run_until_complete(asyncio.wait(tasks))
             loop.close()
-            # print(colored(self.completion, 'yellow', attrs=['bold']))
+            print(colored(self.completion, 'yellow', attrs=['bold']))
             pass
         else:
-            # print('error')
+            print('error')
             pass
 
     def getCompletionNumber(self):
@@ -112,8 +115,5 @@ if __name__ == "__main__":
         print("success:[%d]" % momo.getCompletionNumber())
         pass
     except KeyboardInterrupt:
-        # print("exit")
-        pass
-    else:
-        # print("success")
+        print("exit")
         pass
