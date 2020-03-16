@@ -127,7 +127,7 @@ class momo_share:
                     self.write(path=path, text=ip)
                     print(ip)
         except:
-            print("sleep 2 seconds")
+            # print("sleep 2 seconds")
             time.sleep(2)
 
     # 从ip代理网站获取ip，并保存到文件中
@@ -181,6 +181,7 @@ class momo_share:
             pass
 
         print("开始访问......")
+
         for thread in threads:
             thread.start()
             pass

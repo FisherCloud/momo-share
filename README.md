@@ -12,7 +12,7 @@
 2. 利用代理访问文章
 3. 增加访问量
 
-在linux下运行，我用的Windows的Linux子系统（Ubuntu18.04）（Windows和Unix或许也行
+在linux下运行，我用的Windows的Linux子系统（Ubuntu18.04）（Windows和Unix或许也行）
 
 使用python3，需要安装：
 
@@ -20,42 +20,19 @@
 
 `pip3 install aiohttp`利用aiohttp实现的协程访问（只适用于python3）
 
+`pip3 install requests`
+
+`pip3 install bs4`
+
 ## 运行示例
 
 ```bash
-python3 -u momo-share.py 'url'
+python3 -u momo-share.py
 ```
-
-或者
-
-```bash
-./momo.sh 'url'
-```
-
- url需要改，怎么获得这个呢？首先你打卡之后，要分享到空间去，然后点开这个分享，转发链接到“我的电脑“，然后你就能看到这个url，大概是这样：
- `https://www.maimemo.com/share/page/?uid=XXXXXXX&pid=1181&tid=2346527`
- 其中pid是每天都+1的，uid就是你的墨墨UID，在“我的设置“中可以看到
- 设置好了之后再跑跑看
-
- 除了URL这个参数，后面可以跟浏览次数，请按照顺序输入
-
-例如：
-
-`python3 -u momo-share.py ‘默默背单词分享链接’ ‘最小浏览次数’`
 
 ## 声明
 
 本项目仅用于个人学习测试使用，勿用于非法用途，由于其他用途所产生的一切不良后果本人概不负责。
-
-## 错误处理
-
-如果出现以下报错，请关闭系统的代理再试一下。
-
-```bash
-» python momo-share.py https://www.maimomo.com/share/page/?uid=xxxxxxxx&pid=xxxxxxxx&tid=xxxxxxxx
-[+] get proxy...
-  [-]Error: HTTPConnectionPool(host='127.0.0.1', port=7890): Max retries exceeded with url: http://www.89ip.cn/tqdl.html?num=100 (Caused by ProxyError('Cannot connect to proxy.', RemoteDisconnected('Remote end closed connection without response',)))
-```
 
 ## 感谢
 
@@ -64,3 +41,7 @@ python3 -u momo-share.py 'url'
 ## 2019-11-30
 
 发现大量的代理ip不能够访问，已添加ip-proxy.py用于爬取可用代理ip，但还未重新修改momo-share.py。（待抽空再改）
+
+## 2020-03-16
+
+已更新，`momo-share.py`，由于爬取ip代理测试过多，导致我MAC被封了，暂时没有测试，`momo-share-bak.py`只做了简单修改，使用以往一样
