@@ -40,8 +40,17 @@ python3 -u momo-share.py
 
 ## 2019-11-30
 
-发现大量的代理ip不能够访问，已添加ip-proxy.py用于爬取可用代理ip，但还未重新修改momo-share.py。（待抽空再改）
+发现大量的代理ip不能够访问，已添加`ip-proxy.py`用于爬取可用代理ip，但还未重新修改`momo-share.py`。（待抽空再改）
 
 ## 2020-03-16
 
 已更新，`momo-share.py`，由于爬取ip代理测试过多，导致我MAC被封了，暂时没有测试，`momo-share-bak.py`只做了简单修改，使用以往一样
+
+`momo-share.py`和`momo-share-bak.py`均已通过`pyinstaller`打包为`Windows`程序,在`dist`文件夹下，可以直接使用，无需安装`python`。
+
+`momo-share.exe`可以直接点击或命令行启动，按照提示输入信息即可。
+
+`momo-share-bak.exe`需要在后面带上参数
+
+示例：
+```momo-share-bak.exe https://fishercloud.baklib.com/b13f/b013 [最小访问次数] [爬取代理ip条数]```
